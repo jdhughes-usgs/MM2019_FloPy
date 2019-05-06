@@ -1,0 +1,22 @@
+# CHD6 input file, prepared by MF5to6 on 5/6/2019 at 9:48:52.
+
+BEGIN Options
+  PRINT_INPUT
+END Options
+
+BEGIN Dimensions
+  MAXBOUND  10
+END Dimensions
+
+BEGIN PERIOD 1
+  1  40  6    16.900000
+  1  40  7    16.400000
+  1  40  8    16.100000
+  1  40  9    15.600000
+  1  40  10    15.100000
+  1  40  11    14.000000
+  1  40  12    13.000000
+  1  40  13    12.500000
+  1  40  14    12.000000
+  1  40  15    11.400000
+END PERIOD

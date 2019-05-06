@@ -1,0 +1,10 @@
+# RCH6 input file, prepared by MF5to6 on 5/6/2019 at 9:48:52.
+
+BEGIN Options
+  READASARRAYS
+END Options
+
+BEGIN PERIOD 1
+  RECHARGE
+    CONSTANT   0.16000000E-08
+END PERIOD

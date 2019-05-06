@@ -1,0 +1,16 @@
+BEGIN Options
+  LIST       freyberg6.lst
+  SAVE_FLOWS
+END Options
+
+BEGIN Packages
+  DIS6       freyberg6.dis
+  IC6        freyberg6.ic
+  NPF6       freyberg6.npf
+  OC6        freyberg6.oc
+  WEL6       freyberg6.wel WEL-1
+  RIV6       freyberg6.riv RIV-1
+  RCH6       freyberg6.rch RCH-1
+  CHD6       freyberg6.chd CHD-1
+END Packages
+
