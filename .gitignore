@@ -106,3 +106,12 @@ venv.bak/
 # local exclusions
 Notebooks/data
 Notebooks-completed/data
+bin/code.json
+bin/m*
+bin/sw*
+bin/grid*
+bin/tri*
+bin/vs*
+bin/z*
+bin/__*
+
