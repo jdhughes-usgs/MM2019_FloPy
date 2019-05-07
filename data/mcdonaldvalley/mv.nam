@@ -1,0 +1,15 @@
+BEGIN Options
+  SAVE_FLOWS
+END Options
+
+BEGIN Packages
+  DIS6       mv.dis
+  IC6        mv.ic
+  NPF6       mv.npf
+  OC6        mv.oc
+  CHD6       mv.chd
+  RCH6       mv.rch
+  RIV6       mv.riv
+  WEL6       mv.wel
+END Packages
+

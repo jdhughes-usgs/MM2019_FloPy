@@ -1,0 +1,25 @@
+begin options
+  PRINT_INPUT
+end options
+
+begin dimensions
+  MAXBOUND 3
+end dimensions
+
+begin period 1
+ 5  6 15  0.0
+ 5 35 16  0.0
+ 5 33  6  0.0
+end period
+
+begin period 2
+ 5  6 15   -67000.0
+ 5 35 16  -268000.0
+ 5 33  6        0.0
+end period
+
+begin period 3
+ 5  6 15   -67000.0
+ 5 35 16        0.0
+ 5 33  6  -268000.0
+end period
