@@ -114,4 +114,6 @@ bin/tri*
 bin/vs*
 bin/z*
 bin/__*
+*DoNotAddToRepo*
+img/
 
