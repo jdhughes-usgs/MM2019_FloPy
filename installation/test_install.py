@@ -1,7 +1,8 @@
 ﻿
 # module list to test
 modulelist = ['numpy', 'matplotlib', 'shutil', 'subprocess', 
-              'pandas', 'platform', 'shapefile', 'flopy']
+              'pandas', 'platform', 'shapefile', 'flopy', 
+              'pymake', 'pyemu']
 
 import os
 import sys
@@ -18,7 +19,7 @@ def header():
     #print a header
     print(1*'\n')
     print(72*'-')
-    print('GW3099: Advanced Modeling of Groundwater Flow')
+    print('MODFLOW and More 2019 - FloPy Short Course')
     print('Checking your python distribution and installed modules.')
     return    
 
@@ -63,7 +64,7 @@ def test_modules():
 def test_matplotlib():    
     msg = '  Testing matplotlib installation'
     printmsg(msg)
-    fpth = os.path.join('temp', 'randomfield.png')
+    fpth = os.path.join(dpth, 'randomfield.png')
     try:
         from matplotlib import pyplot as plt
         import numpy as np
@@ -76,6 +77,14 @@ def test_matplotlib():
     
     msg = '  Error.  Could not create a matplotlib figure.'
     assert os.path.isfile(fpth), msg
+    
+    # return
+    return
+    
+def test_cleanup():
+    shutil.rmtree(dpth)
+    
+    # return
     return
         
 
@@ -94,11 +103,9 @@ if __name__ == "__main__":
     # evaluate matplotlib
     test_matplotlib()
     
+    # cleanup
+    test_cleanup()
+    
     print('Done checking...')
     print(72*'-')
-        
     
-# Command to determine kernels used in jupyter
-# Note: this python path in here was incorrect and
-# was not allowing jupyter notebooks to run properly.
-# jupyter kernelspec list --json

@@ -12,15 +12,24 @@ except ImportError:
 import platform
 from subprocess import Popen, PIPE, STDOUT
 
-pythonpath = os.path.join('..', 'Miniconda3', 'python')
-scriptpath = os.path.join('..', 'Miniconda3', 'Scripts')
-kernelpath = os.path.join('..', 'Miniconda3', 'share', 'jupyter',
-                          'kernels', 'python3')
-condacommand = os.path.join(scriptpath, 'conda')
-pipcommand = os.path.join(scriptpath, 'pip')
+if sys.version_info >= (3, 3):
+    from shutil import which
+else:
+    from distutils.spawn import find_executable as which
 
-exeloc = {'Windows': 'python',
-          'Darwin': 'python'}
+exes = {'python': 'python',
+        'conda': 'conda',
+        'pip': 'pip'}
+
+if platform.system() in 'Windows':
+    for key, value in exes.items():
+        if not value.lower().endswith('.exe'):
+            value += '.exe'
+        exes[key] = which(value)
+
+pythonpath = exes['python']
+condacommand = exes['conda']
+pipcommand = exes['pip']
 
 
 # simple function to print a message to STDOUT
@@ -46,19 +55,17 @@ def run_and_print(cmds):
 
 
 def root_install():
-    pip_list = []
+    pip_list = ['https://github.com/modflowpy/pymake/zipball/master',
+                'https://github.com/jtwhite79/pyemu/zipball/develop']
     conda_list = ['jupyter',
-                  'scipy',
                   'pyshp',
-                  'nose',
-                  'pandas',
-                  'flopy']
+                  'flopy',
+                  'nose']
 
     # prepare the pip installs to run in a single command (after activating env)
     cmds = ['{} config --add channels conda-forge'.format(condacommand)]
     cmds.append('{} config --set ssl_verify false'.format(condacommand))
     cmds.append('{} update conda -y'.format(condacommand))
-    cmds.append('{} update -y --all'.format(condacommand))
     for c in conda_list:
         cmds.append('{} install {} -y'.format(condacommand, c))
     cmds.append('{} info'.format(condacommand))
@@ -71,65 +78,16 @@ def root_install():
     
     print('\nRunning tests of installed python packages in root installation...')
     print('    using python installed in "{}"'.format(pythonpath))
-    cmds = [pythonpath + ' -m nose -v test_root_install.py']
+    cmds = [pythonpath + ' -m nose -v test_install.py']
     run_and_print(cmds)    
 
     return
 
 
-def fix_jupyter_kernel():
-    """
-    The latest version of miniconda (10/5/2018) has a problem where python
-    cannot be found when a notebook starts.  It turns out the problem is
-    that the path to python is incorrect in a kernel file called
-    kernel.json.  This function corrects the kernel.json file to point to
-    the correct location.  The problem is only on windows.
-    """
-    import json
-    print('Kernel path is: {}'.format(kernelpath))
-    if not os.path.isdir(kernelpath):
-        print('Error. Kernel path not found: {}'.format(kernelpath))
-
-    kerneljson = os.path.join(kernelpath, 'kernel.json')
-    print('Checking: {}'.format(kerneljson))
-    if not os.path.isfile(kerneljson):
-        print('Error.  Kernel json file not found: {}'.format(kerneljson))
-        kerneljson = None
-
-    pythonexe = None
-    if kerneljson is not None:
-        with open(kerneljson) as data_file:
-            jsondata = json.load(data_file)
-        pythonexe = jsondata['argv'][0]
-        print('Kernel python exe is: {}'.format(pythonexe))
-
-    if pythonexe is not None:
-        if not os.path.isfile(pythonexe):
-            s = pythonexe
-            if pythonexe.endswith('bin/python'):
-                s = s.replace('bin/python', 'python')
-                print('Attempting to find: {}'.format(s + '.exe'))
-                if os.path.isfile(s + '.exe'):
-                    pythonexe = s
-                    os.rename(kerneljson, kerneljson + '.bak')
-                    jsondata['argv'][0] = pythonexe
-                    with open(kerneljson, 'w') as outfile:
-                        json.dump(jsondata, outfile, indent=1)
-                else:
-                    print('Error. Could not reset kernel python exe.')
-
-    print('Done checking kernel path.')
-
-
 if __name__ == "__main__":
 
     install_root = True
-    fix_jupyter = True
     
     # install packages to root environment
     if install_root:
         root_install()
-
-    # fix the jupyter kernel location
-    if fix_jupyter:
-        fix_jupyter_kernel()
