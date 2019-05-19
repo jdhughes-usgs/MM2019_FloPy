@@ -60,7 +60,8 @@ def root_install():
     conda_list = ['jupyter',
                   'pyshp',
                   'flopy',
-                  'nose']
+                  'nose',
+                  'scipy']
 
     # prepare the pip installs to run in a single command (after activating env)
     cmds = ['{} config --add channels conda-forge'.format(condacommand)]

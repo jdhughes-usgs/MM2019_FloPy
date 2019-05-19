@@ -2,7 +2,7 @@
 # module list to test
 modulelist = ['numpy', 'matplotlib', 'shutil', 'subprocess', 
               'pandas', 'platform', 'shapefile', 'flopy', 
-              'pymake', 'pyemu']
+              'pymake', 'pyemu', 'scipy']
 
 import os
 import sys
