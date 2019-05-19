@@ -113,6 +113,7 @@ bin/grid*
 bin/tri*
 bin/vs*
 bin/z*
+bin/pestpp*
 bin/__*
 *DoNotAddToRepo*
 img/

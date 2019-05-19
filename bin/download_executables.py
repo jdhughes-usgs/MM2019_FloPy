@@ -56,6 +56,20 @@ def getmfexes(pth='.', version='', pltfrm=None):
                                    'win32.zip', 'win64.zip']}
     download_url = assets[zipname]
     pymake.download_and_unzip(download_url, pth)
+    
+    # additional assets
+    if 'win' in pltfrm:
+        zipname = 'pestppwin.zip'
+    else:
+        zipname = 'pestpp{}.zip'.format(pltfrm)
+    url = ('https://github.com/jdhughes-usgs/MM2019_FloPy/'
+           'releases/download/1/')
+    assets = {p: url + p for p in ['pestppmac.zip', 
+                                   'pestpplinux.zip',
+                                   'pestppwin.zip']}
+    download_url = assets[zipname]
+    pymake.download_and_unzip(download_url, pth)
+    
 
     return
 
