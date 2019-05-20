@@ -49,9 +49,12 @@ def test_anaconda():
     if 'anaconda' not in sys_version.lower() and \
     'conda-forge' not in sys_version.lower() and \
     'miniconda' not in sys_version.lower():
-        msg = '  Warning.  Your system version of python ' + \
-              'is not Anaconda variant.'
-        assert False, msg
+        ppth = sys.executable.lower()
+        if 'anaconda' not in ppth and \
+        'miniconda' not in ppth:
+            msg = '  Warning.  Your system version of python ' + \
+                  'is not Anaconda variant.'
+            assert False, msg
     return
     
     

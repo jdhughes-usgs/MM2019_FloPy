@@ -71,9 +71,9 @@ def root_install():
         cmds.append('{} install {} -y'.format(condacommand, c))
     cmds.append('{} info'.format(condacommand))
     # add pip installs
-    cmds.append('{} -m pip install --upgrade pip'.format(pythonpath))
+    cmds.append('{} -m pip install --trusted-host pypi.python.org --upgrade pip'.format(pythonpath))
     for p in pip_list:
-        cmds.append('{} install {}'.format(pipcommand, p))
+        cmds.append('{} install --trusted-host codeload.github.com {}'.format(pipcommand, p))
     
     run_and_print(cmds)
     
