@@ -1,4 +1,6 @@
+import os
 import sys
+import shutil
 import pymake
 
 def get_platform(pltfrm):
@@ -70,7 +72,13 @@ def getmfexes(pth='.', version='', pltfrm=None):
     download_url = assets[zipname]
     pymake.download_and_unzip(download_url, pth)
     
-
+    # check for stray directories
+    listdir = os.listdir()
+    for v in os.listdir():
+        if os.path.isdir(v):
+            print('removing...{}'.format(v))
+            shutil.rmtree(v, ignore_errors=True)
+    
     return
 
 
